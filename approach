@@ -1,0 +1,21 @@
+Three models were made to store the respective data of three different csv, then in the model storeTimings an extra column is also added to store the report id.
+
+A fourth model is made to store the report id, status and the data which we want in report format.by default the status is filled false.
+
+According to the task we need asynchrous work so for that we will use celery as using different worker for that will increase our efficiency.
+
+Now when the trigger report Api (POST method)will be called then celery workers will start working in asynchrous manner in which the report id will be send directly .as the report data for a report is ready its status will be changed from False to true. by this way we can info whether the report is ready or not for a particular report id.
+
+
+the second api will be (GET method ) as we are taking only data from database.
+
+
+for calculation of uptimeLastHour:
+    1) using datetime first we will get now info like time, day .
+    2) first we will check if last updated tym is less than now or not if yes then return otherwise we will proceed.
+    3) Now another check will be performed to check if today's day is in list of menu hours or not if not thn losing and opening time will be 00:00:00, other wise get the time of opening and closing of the restaurant.
+    4)now another check will be performed that if the shop is not available for 24*7 then we need to check whether the shop is open this time or not. if not open then return otherwise proceed.
+    5) if the shop is open then we will check its status from the record for the last hours.
+    6) in case the status is not present then we will check the stats for the last 7 days. we will check the no of active and non active . if the active sor continuous last days then it will be marked active otherwise not.
+    7) according to this uptime and downtime will be evaluated. 
+
